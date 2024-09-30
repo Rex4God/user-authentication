@@ -1,0 +1,52 @@
+services:
+  # PostgreSQL service
+  nestjs-auth-api:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - nestjs-auth-intranet
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nestjs_auth_api
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 3
+      timeout: 3s
+  
+  # Redis service
+  redis:
+    container_name: redis 
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    ports:
+      - 6379:${REDIS_PORT}
+    networks:
+      - nestjs-auth-intranet
+    environment:
+      REDIS_HOST: redis-server-container
+      REDIS_PASSWORD: UnitedKingdown123
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 5s
+      retries: 3
+      timeout: 3s
+
+networks:
+  nestjs-auth-intranet:
+    name: nestjs-auth-intranet
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: nestjs-auth-api-postgres
+  redis_data:
+    name: nestjs-auth-api-redis

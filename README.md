@@ -5,13 +5,10 @@
 
 ## DATABASE
 $kind: postgres
-db-name : nestjs_auth_api
+$db-name : nestjs_auth_api
 
 
-
-
-## Installation
-```bash
+## INSTALLATION 
   $ Clone project.
   $ Install Node ( >= 14.0.0).
   $ Install yarn/npm.
@@ -33,6 +30,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Docker
+- run docker-compose build 
+- run docker-compose up
 
 ## Test
 
@@ -47,5 +47,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## DOCUMENTATIONS
+
+[SETUP INSTALLATION PROCESS](https://drive.google.com/file/d/15UlYfXtBVJOxkAfRXcLiIW8wzh6d0Oz_/view?usp=sharing)
+
+[POSTMAN DOCUMENTATION](https://documenter.getpostman.com/view/19119257/2sAXqzWyAt)
+
 
